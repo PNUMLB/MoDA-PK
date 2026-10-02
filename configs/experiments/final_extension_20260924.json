@@ -1,0 +1,53 @@
+{
+  "experiment": "FINAL_EXTENSION_20260924",
+  "folds": [
+    "loso_00",
+    "loso_01",
+    "loso_02",
+    "loso_03",
+    "loso_04",
+    "loso_05",
+    "loso_06",
+    "loso_07",
+    "loso_08",
+    "loso_09"
+  ],
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "modes": [
+    "unipk",
+    "deepct",
+    "dcm",
+    "molecular_relation",
+    "offset_relation",
+    "molecular",
+    "molecular_offset",
+    "drug_id",
+    "no_molecule"
+  ],
+  "epochs": 120,
+  "learning_rate": 0.003,
+  "weight_decay": 0.0001,
+  "validate_every": 10,
+  "fit_timeout_seconds": 7200,
+  "workers": 18,
+  "selection": "Fixed hyperparameters from Known study; validation source per legacy fold, k2 minimum SB-hRMSE checkpoint. Test source not used for stopping or tuning.",
+  "protocols": [
+    "first_k",
+    "common_origin"
+  ],
+  "k": [
+    0,
+    1,
+    2,
+    4
+  ],
+  "scope": "Secondary internal joint drug-source shift. Not external validation; no claim of post-selection independence. Drug-specific PopPK not applicable to unseen drugs.",
+  "unknown_drug": "Offset zero; Drug-ID training embedding mean fallback; scaler/prior/relation target strictly fit partition.",
+  "future_doses": "Existing recorded ledger assumption retained; prospective known-at-cutoff status remains unverified where original metadata absent."
+}

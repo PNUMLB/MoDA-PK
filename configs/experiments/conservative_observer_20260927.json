@@ -1,0 +1,42 @@
+{
+  "status": "registered",
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "conditions": {
+    "amount_half": [
+      0.5,
+      "amount",
+      true
+    ],
+    "amount_small": [
+      0.05,
+      "amount",
+      true
+    ],
+    "log_half": [
+      0.5,
+      "bounded_log",
+      true
+    ],
+    "log_small": [
+      0.05,
+      "bounded_log",
+      true
+    ],
+    "log_state": [
+      0.05,
+      "bounded_log",
+      false
+    ]
+  },
+  "epochs": 360,
+  "learning_rate": 0.003,
+  "selection": "Known validation SB-hRMSE k2; same frozen prior, no test use",
+  "hypothesis": "Separate initial gain, innovation geometry and parameter updates; longer matched adapter budget",
+  "limit": "Frozen parent prior ended at epoch120; prior convergence unresolved. Reused development cohort, not independent validation. Not a novelty or superiority claim."
+}

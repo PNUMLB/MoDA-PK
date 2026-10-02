@@ -1,0 +1,44 @@
+{
+  "dataset_id": "source_traceable_20260925",
+  "split_id": "source_traceable_20260925",
+  "folds": [
+    "known"
+  ],
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "epochs": 120,
+  "learning_rate": 0.003,
+  "weight_decay": 0.0001,
+  "validate_every": 10,
+  "conditions": [
+    "prior",
+    "parameter",
+    "state",
+    "combined"
+  ],
+  "relation_loss": "OFF",
+  "primary_protocol": "first_k",
+  "primary_k": 2,
+  "secondary_protocols": [
+    "common_origin"
+  ],
+  "k": [
+    0,
+    1,
+    2,
+    4
+  ],
+  "primary_contrast": "combined vs same frozen prior; state and parameter contrasts separately",
+  "selection": "Known validation SB-hRMSE k=2; select one prior then independently refit each adapter. No test-driven configuration selection.",
+  "state_semantics": "CL/Vc updates retain propagated amounts, optional central amount correction at each support. Effective predictive parameters.",
+  "scope": "Controlled internal ablation; native jointly trained MHAP-PK and external implementations remain separate whole-method comparisons.",
+  "case_selection": "Per drug: median combined error, largest improvement and largest worsening vs common prior by 5-seed mean profile MSE; display seed1 only.",
+  "tolerance": 1e-10,
+  "statistics": "paired source-balanced SB differences; average differences over seeds, bootstrap sources; exploratory fixed-fit intervals",
+  "future_dosing": "Existing recorded ledger convention preserved; known-at-cutoff not independently established where missing"
+}

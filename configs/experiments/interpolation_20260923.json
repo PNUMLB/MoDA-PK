@@ -1,0 +1,35 @@
+{
+  "modes": [
+    "native",
+    "linear_interp",
+    "log_linear_interp"
+  ],
+  "epochs": 240,
+  "validate_every": 10,
+  "learning_rate": 0.003,
+  "weight_decay": 0.0001,
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "inner_partitions": [
+    0,
+    1
+  ],
+  "k": 2,
+  "selection": "One epoch per mode minimizing max across roles of mean SB-hRMSE/reference; tie mean then earliest epoch. Reference is existing train-only fixed prior; used only for normalization.",
+  "scope": "Repeated-use inner development only; no outer validation/test forecasts for selection. No refit at this stage.",
+  "change": "End-to-end native Sequential. Training only: replace one earlier singleton support block using adjacent revealed support endpoints, at most once per episode; retain count, last cutoff, query and dosing.",
+  "timestamp": "2026-09-23T21:46:40.047123+00:00",
+  "replacement_probability": 0.5,
+  "fraction_bounds": [
+    0.25,
+    0.75
+  ],
+  "eligible_interval": "No active dose start or infusion stop in CLOSED bracket including endpoints. Singleton endpoint blocks only. k=0/1 unchanged. Ongoing infusion without boundaries allowed and approximation acknowledged.",
+  "augmentation_scope": "Same-profile interpolation, not cross-patient/drug mixup. Original arrays preserved. No query concentration or validation data used to make synthetic support.",
+  "diagnostic": "Before training: hide an interior time block among FIRST FOUR TRAIN support blocks, interpolate from adjacent endpoints, record errors and exclusions. No method selection on validation.",
+  "secondary_evaluation": "k=0/1/4 at k=2-selected checkpoints; no reselection.",
+  "selection_scope": "Same existing repeated-use internal validation. Independent outer evaluation not conducted unless justified by later protocol."
+}

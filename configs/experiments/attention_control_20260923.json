@@ -1,0 +1,25 @@
+{
+  "status": "running",
+  "seed": 1,
+  "inners": [
+    0,
+    1
+  ],
+  "modes": [
+    "cl",
+    "joint"
+  ],
+  "encoders": [
+    "deepsets",
+    "attention",
+    "cross_attention"
+  ],
+  "epochs": 30,
+  "steps": 10,
+  "k": 2,
+  "selection": "one common epoch across both inners per encoder/mode; minimize worst track of mean same-prior SB-hRMSE ratios; epoch0 included; no outer test access",
+  "features": "identical 47-dimensional support tokens including full three-coordinate sensitivities and frozen molecular context",
+  "cross_attention": "one self-attention block then molecular-query cross-attention pooling",
+  "deepsets_parent": "results/runs/STRUCTURE_CONTROL/development_20260923/learned",
+  "note": "same seed,optimizer,prior,fit,query,steps,bounds; parameter counts differ; no claim of final outer performance"
+}

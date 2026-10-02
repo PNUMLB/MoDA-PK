@@ -1,0 +1,16 @@
+{
+  "name": "common_prior_parameter_state_separation",
+  "status": "development",
+  "primary_fold": "known",
+  "seeds": [1, 2, 3],
+  "support_k": [0, 1, 2, 4],
+  "prior": "one molecular CalibratedPrior per outer fold, frozen before adaptation fits",
+  "conditions": {
+    "prior_only": {"parameter_update": false, "state_update": false},
+    "parameter_only": {"parameter_update": true, "state_update": false},
+    "state_only": {"parameter_update": false, "state_update": true},
+    "parameter_state": {"parameter_update": true, "state_update": true}
+  },
+  "selection": "validation only; no test labels used for tuning",
+  "note": "This is the E1 development experiment. Final all-fold evaluation follows after the component choice is fixed."
+}

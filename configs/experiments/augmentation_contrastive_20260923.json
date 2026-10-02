@@ -1,0 +1,41 @@
+{
+  "modes": [
+    "native",
+    "rank_contrast"
+  ],
+  "epochs": 240,
+  "validate_every": 10,
+  "learning_rate": 0.003,
+  "weight_decay": 0.0001,
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "inner_partitions": [
+    0,
+    1
+  ],
+  "k": 2,
+  "selection": "One epoch per mode minimizing max across roles of mean SB-hRMSE/reference; tie mean then earliest epoch. Reference is existing train-only fixed prior; used only for normalization.",
+  "scope": "Repeated-use inner development only; no outer validation/test forecasts for selection. No refit at this stage.",
+  "change": "Both conditions: fixed prior + same jitter. Add rank-aware auxiliary only in rank_contrast. native here means jitter-only matched control, not end-to-end original.",
+  "timestamp": "2026-09-23T14:22:30.927122+00:00",
+  "family": "contrastive",
+  "frozen_prior": true,
+  "support_mask": "Drop earlier available time blocks independently p=.5, always retain last block and same cutoff. Same-time replicates masked together. No query changes.",
+  "support_noise": "Per-time-block log noise, Gaussian clipped at 2 SD; estimated from training support replicates only, clipped .01-.10. If no positive estimate, predeclared .05 robustness stress.",
+  "prior_jitter": "Fixed family only. 50% of supported profiles: CL/Vc log shift with train-drug prior-output SD x .25 clipped [.05,.2], Gaussian clipped 2 SD; no k=0 shift. No changes to labels/doses. All evaluation clean.",
+  "frozen_parent": "Same train-only prior, reused across seeds; fresh observer initialized independently per seed. No prior retraining.",
+  "secondary_evaluation": "k=0,1,4 at k=2 selected checkpoints, no reselection.",
+  "contrastive_gate": "Proceed only if an augmentation has mean SB-hRMSE no worse than its matched family native in BOTH inner tracks and strictly better in at least one; otherwise defer. Do not select from outer test.",
+  "noise_scope": "Not estimating biological variability or generating new independent drugs.",
+  "contrast_weight": 0.01,
+  "contrast_temperature": 2.0,
+  "contrast_samples": 32,
+  "contrast_features": "77-dimensional molecular context, observer hidden, final log PK parameters, log1p state, query times, known dose summaries -> 32 SiLU -> 16 training-only projection.",
+  "contrast_views": "Clean-prior vs perturbed-prior forecast representations at SAME sampled training query. Same observed support/dosing/labels. L1 log-concentration target distances; negative Euclidean feature similarity; rank-aware denominator.",
+  "contrast_reference": "https://github.com/kaiwenzha/Rank-N-Contrast/blob/main/loss.py",
+  "contrast_scope": "PK task auxiliary use; not original paper reproduction or biological PK similarity labeling. Future concentrations only train loss targets.",
+  "budget": "240 updates, same selected-epoch criterion; one registered loss weight, no search. Contrastive condition uses extra clean forward and projection; inference architecture unchanged."
+}

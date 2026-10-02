@@ -1,0 +1,60 @@
+{
+  "modes": [
+    "native",
+    "within_drug",
+    "molecule_film",
+    "film_within_drug"
+  ],
+  "validate_every": 10,
+  "learning_rate": 0.003,
+  "weight_decay": 0.0001,
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "k": 2,
+  "selection": "Same worst normalized two-track inner criterion; freeze per-mode epochs for outer Known and all 10 Joint folds.",
+  "scope": "Previously examined outer cohort; no independent external validation; fixed inner-selected epochs.",
+  "change": "2x2: within-drug balanced contrast and bounded molecule-conditioned history features.",
+  "timestamp": "2026-09-24",
+  "replacement_probability": 0.5,
+  "fraction_bounds": [
+    0.25,
+    0.75
+  ],
+  "eligible_interval": "No active dose start or infusion stop in CLOSED bracket including endpoints. Singleton endpoint blocks only. k=0/1 unchanged. Ongoing infusion without boundaries allowed and approximation acknowledged.",
+  "augmentation_scope": "Same-profile interpolation, not cross-patient/drug mixup. Original arrays preserved. No query concentration or validation data used to make synthetic support.",
+  "diagnostic": "Use prior interpolation diagnostic; record view losses, hidden dispersion, eligible negative counts; verify original controls.",
+  "secondary_evaluation": "k=0/1/4 at k=2-selected checkpoints; no reselection.",
+  "selection_scope": "Repeated-use inner development; alpha and temperature fixed before runs; no outer evaluation.",
+  "view_loss_weight": 0.01,
+  "temperature": 0.2,
+  "representation": "32-32-16 projection for contrast conditions; FiLM zero-initialized bounded .25 modulation of 11 observation features using molecular context.",
+  "forecast_loss": "Original history for all conditions; existing prior PK and chemical relation losses unchanged across all four.",
+  "negative_policy": "Same drug only, different source-scoped participant; same-participant nonself excluded.",
+  "soft_mass": 0.2,
+  "soft_target": "Same-drug train-query supervised affinity only; .2 soft mass, .8 self; exact normalization.",
+  "normalization": "Equal participant anchor weights within each eligible drug; equal mean of eligible drug losses. Negative candidate denominator remains profile-based.",
+  "fixed_epochs": {
+    "native": 190,
+    "within_drug": 210,
+    "film_within_drug": 160,
+    "molecule_film": 160
+  },
+  "folds": [
+    "known",
+    "loso_00",
+    "loso_01",
+    "loso_02",
+    "loso_03",
+    "loso_04",
+    "loso_05",
+    "loso_06",
+    "loso_07",
+    "loso_08",
+    "loso_09"
+  ],
+  "source_selection": "results/runs/WITHIN_DRUG/development_20260924/analysis/selected_epochs.csv",
+  "fit_partition": "Registered train only; no refit."
+}

@@ -1,0 +1,44 @@
+{
+  "modes": [
+    "native",
+    "view_contrastive",
+    "projection_hard",
+    "projection_soft"
+  ],
+  "epochs": 240,
+  "validate_every": 10,
+  "learning_rate": 0.003,
+  "weight_decay": 0.0001,
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "inner_partitions": [
+    0,
+    1
+  ],
+  "k": 2,
+  "selection": "Same worst normalized two-track inner criterion; freeze per-mode epochs for outer Known and all 10 Joint folds.",
+  "scope": "Internal development first, then full outer Known/Joint; no independent external claim.",
+  "change": "Same linear replacement RNG across candidates. Pair loss only on profiles actually replaced. No view loss for k0/k1.",
+  "timestamp": "2026-09-23T23:32:53.714576+00:00",
+  "replacement_probability": 0.5,
+  "fraction_bounds": [
+    0.25,
+    0.75
+  ],
+  "eligible_interval": "No active dose start or infusion stop in CLOSED bracket including endpoints. Singleton endpoint blocks only. k=0/1 unchanged. Ongoing infusion without boundaries allowed and approximation acknowledged.",
+  "augmentation_scope": "Same-profile interpolation, not cross-patient/drug mixup. Original arrays preserved. No query concentration or validation data used to make synthetic support.",
+  "diagnostic": "Use prior interpolation diagnostic; record view losses, hidden dispersion, eligible negative counts; verify original controls.",
+  "secondary_evaluation": "k=0/1/4 at k=2-selected checkpoints; no reselection.",
+  "selection_scope": "Repeated-use inner development; alpha and temperature fixed before runs; no outer evaluation.",
+  "view_loss_weight": 0.01,
+  "temperature": 0.2,
+  "representation": "Final hidden direct vs train-only 32-32 SiLU-16 projection, shared for both views. Separate head initialization does not change backbone seed.",
+  "forecast_loss": "Original history only for view losses; replacement history for linear_interp control.",
+  "negative_policy": "Other source-scoped participants among actually replaced training profiles. Same recorded source/participant excluded including coadministered drugs. Unknown cross-source linkage remains a data limitation.",
+  "soft_mass": 0.2,
+  "soft_target": "Train-query supervised, dose-normalized level and shape similarity within comparable single-dose route/duration and overlapping time ranges. Fixed affinity detached; cross-patient soft mass .2, self-positive .8; fallback hard if no eligible.",
+  "normalization": "Exact positive row mass division; use denominator 1 only for zero row. Regression test for 1e-100 affinities. Initial faulty implementation preserved in normalization_audit_failed folders; no settings changed based on outer performance."
+}

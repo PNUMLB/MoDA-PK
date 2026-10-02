@@ -1,0 +1,37 @@
+{
+  "status": "completed",
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "folds": [
+    "known",
+    "loso_00",
+    "loso_01",
+    "loso_02",
+    "loso_03",
+    "loso_04",
+    "loso_05",
+    "loso_06",
+    "loso_07",
+    "loso_08",
+    "loso_09"
+  ],
+  "conditions": [
+    "prior_only",
+    "information_only",
+    "state_only",
+    "information_state"
+  ],
+  "epochs": 120,
+  "planned_runs": 55,
+  "fit": "train only",
+  "selection": "validation k=2 SB-hRMSE",
+  "claim_scope": "internal controlled experiment",
+  "completed_runs": 55,
+  "failed_runs": 0,
+  "completed_conditions": 220
+}

@@ -1,0 +1,14 @@
+{
+ "experiment_id":"SHARED_COMPONENTS_20260924",
+ "scope":"Repeated-use inner development only; outer diagnostic scores do not choose settings. Outer Known train pool inner partitions must not be reused as independent selection for every Joint fold.",
+ "seeds":[1,2,3],"inner_partitions":[0,1],
+ "prior":"Per inner and seed: train-only population 3 starts x 120 steps; molecular prior 120 fixed epochs; relation OFF; frozen for all adaptations.",
+ "gru_modes":["parameter","state","combined"],"epochs":240,"validate_every":20,"learning_rate":0.003,"weight_decay":0.0001,
+ "gru_loss":"Hierarchical weighted future query log MSE + .001 parameter offset penalty. Original support, k=0/1/2/4. No contrast, no FiLM; shared frozen prior.",
+ "state_semantics":"GRU retains propagated amounts at each parameter update and optionally assimilates central amount at each support. MAP reconstructs a single trajectory and estimates first-support central state. These are explicitly distinct mechanisms.",
+ "map_modes":["cl","parameter","state","joint"],"strengths":[0.1,1,10,1000,1000000],"map_steps":10,
+ "map_scales":{"parameter":0.6,"state":1.0,"noise":0.3},"map_bounds":{"log_parameter":2.0,"log_state_ratio":1.3862943611198906},
+ "selection":"For each family select common epoch or strength across 2 inners x 3 seeds by worst mean prior-relative track ratio; then mean ratio; then earliest epoch or strongest strength. Include exact prior overall. Report validation selection optimism.",
+ "primary_k":2,"secondary_k":[0,1,4],"query":"Same queries after fourth distinct time block for every k.",
+ "restricted_candidate":"Not introduced in this phase; prioritize trained parameter/state separation and existing strong fixed MAP controls."
+}

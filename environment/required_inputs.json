@@ -1,0 +1,57 @@
+[
+  {
+    "path": "data/processed/full16_v1/primary_full16.csv",
+    "sha256": "c0697459fea78db8a023ff5508c892e7457aa94d50be0981bebba98d48f50525",
+    "bytes": 10671981
+  },
+  {
+    "path": "data/processed/full16_v1/dose_events.csv",
+    "sha256": "bd2aa6a74214a0f70532bb936d127096c1f5129b47b1e4c58eaf692904361525",
+    "bytes": 66273
+  },
+  {
+    "path": "data/provenance/forecast_participant_split_origin_LOCAL_ONLY.json",
+    "sha256": "a6b6f25f605c885ffeb7a1c0586954ad4763de9e553c9bdd62a868ad68e7f665",
+    "bytes": 18174848
+  },
+  {
+    "path": "data/metadata/provenance_groups_20260925/source_traceable/dataset_reference.json",
+    "sha256": "fd149e657979666d2f08bc6392001a1754cf5f3fe2a15e28ec7ed0fbae08f2cd",
+    "bytes": 1194
+  },
+  {
+    "path": "data/splits/source_traceable_20260925/partitions.json",
+    "sha256": "c7ad522dbfe9b44ce5d0e42716a9f3f47de97ff498d4022a2c0864241dcd5d55",
+    "bytes": 124764
+  },
+  {
+    "path": "data/splits/participant_resampling_20261002/partitions.json",
+    "sha256": "e4af6de246a4fceb5acda9e8727c8e290525ee893109717b62af7b5bbb9a3042",
+    "bytes": 105827
+  },
+  {
+    "path": "data/processed/full16_v1/embeddings/unimol.npz",
+    "sha256": "0d8e5f7317fa4160adbafbe09db9aa6f7e9c485b56677963e5a9e90773b5b5f5",
+    "bytes": 37236
+  },
+  {
+    "path": "data/processed/full16_v1/embeddings/chemberta.npz",
+    "sha256": "39c96965aef58edd8baa8c4e13fa968925d2d8a616513960570e18f12445564b",
+    "bytes": 37236
+  },
+  {
+    "path": "data/processed/full16_v1/embeddings/none.npz",
+    "sha256": "a73e003228c714097b39e073470fe2b294387c6379812ca8d53e561624bdcc32",
+    "bytes": 37236
+  },
+  {
+    "path": "data/processed/full16_v1/embeddings/MANIFEST.json",
+    "sha256": "f01002ca0e20ccfbf2275d96c599a8b2849936479bf352a04f2dcc558aaafe65",
+    "bytes": 18430
+  },
+  {
+    "path": "data/processed/full16_v1/embeddings/morgan.npz",
+    "sha256": "9099d70dc212d6c60f87cc3379d00125fb17cf8303760290cda4e07249efbc24",
+    "bytes": 37236
+  }
+]

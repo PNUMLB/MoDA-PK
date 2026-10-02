@@ -1,0 +1,62 @@
+{
+  "experiment": "TRACEABLE_20260925",
+  "dataset_id": "source_traceable_20260925",
+  "split_id": "source_traceable_20260925",
+  "split_sha256": "c7ad522dbfe9b44ce5d0e42716a9f3f47de97ff498d4022a2c0864241dcd5d55",
+  "folds": [
+    "known",
+    "loso_00",
+    "loso_01",
+    "loso_02",
+    "loso_03",
+    "loso_04",
+    "loso_05",
+    "loso_06",
+    "loso_07",
+    "loso_08"
+  ],
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "modes": [
+    "molecular",
+    "molecular_relation",
+    "no_molecule",
+    "drug_id",
+    "ecfp",
+    "chemical_only",
+    "pk_only",
+    "molecular_offset",
+    "offset_relation",
+    "dcm",
+    "deepct",
+    "unipk"
+  ],
+  "epochs": 120,
+  "learning_rate": 0.003,
+  "weight_decay": 0.0001,
+  "validate_every": 10,
+  "fit_timeout_seconds": 7200,
+  "workers": 20,
+  "population_learning_rate": 0.01,
+  "map_steps": 50,
+  "protocols": [
+    "first_k",
+    "common_origin"
+  ],
+  "k": [
+    0,
+    1,
+    2,
+    4
+  ],
+  "selection": "Frozen hyperparameters and held-out validation checkpoint selection; no test-driven tuning",
+  "scope": "11 source-traceable drugs; retained data still have clinical QC gaps. Fresh training, no old learned checkpoints/calibration. Existing frozen molecular caches are allowed.",
+  "future_doses": "Recorded ledger convention retained; known-at-cutoff remains unverified where absent",
+  "poppk_scope": "Drug-specific VI+MAP Known only; unavailable Joint",
+  "source_manifest_sha256": "7a8bf7f53f34d494bc6c4d0557a3291fee9e3fc294f929b9185fd255d66843f9"
+}

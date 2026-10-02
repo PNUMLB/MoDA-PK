@@ -1,0 +1,33 @@
+{
+  "modes": [
+    "native",
+    "source_weighting",
+    "episodic"
+  ],
+  "epochs": 240,
+  "validate_every": 10,
+  "learning_rate": 0.003,
+  "weight_decay": 0.0001,
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "inner_partitions": [
+    0,
+    1
+  ],
+  "k": 2,
+  "selection": "One epoch per mode minimizing max across roles of mean SB-hRMSE/reference; tie mean then earliest epoch. Reference is existing train-only fixed prior; used only for normalization.",
+  "scope": "Repeated-use inner development only; no outer validation/test forecasts for selection. No refit at this stage.",
+  "change": "Unchanged native architecture and inference. Episodic temporary first-order SGD on A (all but B source), outer mixture of full forecast and B-after-A forecast; full relation loss retained. Source-weighting control uses identical episodes and alpha=0.",
+  "timestamp": "2026-09-23T14:03:39.447701+00:00",
+  "inner_step_size": 0.01,
+  "inner_step_clip": 5.0,
+  "meta_weight": 0.5,
+  "meta_order": "First order: detach gradient of A, preserve identity derivative of temporary parameters. No Hessian.",
+  "episode_grouping": "Leave one fitting source out; assert A/B drug and registered participant disjoint. Cycle random permutation of source groups per seed.",
+  "fitting_statistics": "Scaler and population initialization fitted on all inner training, including meta-B. Episode-A relation targets exclude B. Global meta initialization sees every training source across episodes; not truly unseen drug validation.",
+  "budget": "240 outer optimizer updates per condition. Source weighting and episodic each perform 3 forecast batches per update; native 1. Report compute difference; no extra tuning budget.",
+  "secondary_evaluation": "Same selected k=2 checkpoints at k=0,1,4, no reselection."
+}
