@@ -1,0 +1,41 @@
+{
+  "model_id": "molecular_identity",
+  "display_name": "MoDE-PK (Ours)",
+  "molecular_encoder": "frozen Uni-Mol",
+  "molecular_dim": 512,
+  "identity_dim": 512,
+  "context_dim": 32,
+  "observer_hidden_dim": 32,
+  "parameter_update": true,
+  "state_update": true,
+  "chemical_relation_weight": 0.0,
+  "pk_relation_weight": 0.0,
+  "unseen_identity": "mean_training_embedding",
+  "primary_history_k": 2,
+  "evaluation_k": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "training_k": [
+    0,
+    1,
+    2,
+    4
+  ],
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "reference": "Descriptive identity; CLI uses registered source_traceable experiment settings."
+}

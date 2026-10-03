@@ -85,6 +85,8 @@ class RelationalPK(nn.Module):
         first_interval = torch.ones(b, dtype=torch.bool, device=z.device)
         offsets = z.new_zeros((b, 2)); gain = z.new_zeros(b)
         parameter_penalty = z.new_zeros(b); count = z.new_zeros(b)
+        if hasattr(self, "gru") and hasattr(self.gru, "reset_history"):
+            self.gru.reset_history()
         trace = []
         history_features, history_times, history_masks = [], [], []
         for i in range(0 if self.prior_only else times.shape[1]):
@@ -120,6 +122,8 @@ class RelationalPK(nn.Module):
                     history_times.append(end)
                     history_masks.append(active)
                     history_context = context + self.residual_history(history_features, history_times, history_masks)
+                if hasattr(self.gru, "set_active"):
+                    self.gru.set_active(active)
                 proposed_h = self.gru(torch.cat([features, history_context], -1), memory)
                 new_offset = self.personal_bound*torch.tanh(self.parameter_head(proposed_h))
                 new_gain = torch.sigmoid(self.gain_head(proposed_h)).squeeze(-1)

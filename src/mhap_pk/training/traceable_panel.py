@@ -14,7 +14,7 @@ from mhap_pk.training.run_io import inputs,save_json,digest
 from mhap_pk.evaluation.history_protocols import common_origin,initial_observation_inputs
 B=R/'results/runs/TRACEABLE/evaluation_20260925'
 
-def run(fold,seed,mode,output_root=None,model_builder=None,target_drug=None,partition_spec=None):
+def run(fold,seed,mode,output_root=None,model_builder=None,target_drug=None,partition_spec=None,training_augmentation=None):
  B=Path(output_root) if output_root is not None else R/'results/runs/TRACEABLE/evaluation_20260925'
  builder=model_builder if model_builder is not None else build
  case=fold
@@ -39,12 +39,15 @@ def run(fold,seed,mode,output_root=None,model_builder=None,target_drug=None,part
   art=dict(train=tr.tolist(),validation=va.tolist(),test=te.tolist(),scaler=sc,drug_participants=counts.to_dict());save_json(out/'artifacts.json',art);save_json(out/'config.resolved.json',cfg|dict(fold=fold,seed=seed,condition=mode))
   calpath=B/'calibration'/fold/'population.json';cal=json.loads(calpath.read_text());assert cal['fitting_indices']==tr.tolist();pop=torch.tensor(cal['log_parameters'],dtype=torch.double);save_json(out/'population.json',cal|dict(parent_sha256=digest(calpath)))
   torch.manual_seed(seed);m=builder(base_mode,n,pop);vectors=torch.zeros_like(z) if mode in ['no_molecule','drug_id'] else z;b=make_batch(ps,meta,tr,vectors,ids);v=make_batch(ps,meta,va,vectors,ids)
+  synthetic_batch=training_augmentation(ps,meta,tr,b,pop,seed,out) if training_augmentation is not None else None
   relations=build_relations(ps,meta,tr,z,ids) if mode in ['molecular_relation','offset_relation','chemical_only','pk_only'] else None
   if relations is not None:torch.save(relations,out/'training_relations.pt')
   rng=np.random.default_rng(1000+seed);opt=torch.optim.AdamW(m.parameters(),lr=cfg['learning_rate'],weight_decay=cfg['weight_decay']);initial={k:x.clone() for k,x in m.state_dict().items()};best=float('inf');logs=[];validation=[];solver_failures=[]
   for epoch in range(cfg['epochs']+1):
    if epoch:
     m.train();opt.zero_grad(set_to_none=True);ks=torch.tensor(rng.integers(0,4,len(b.indices)));o=m(*b.inputs(ks));w=b.weights.sum(1);l=((o['mean']-b.query_y).square()*b.weights).sum()
+    if synthetic_batch is not None:
+     synthetic_output=m(*synthetic_batch.inputs(ks));l=.5*l+.5*((synthetic_output['mean']-synthetic_batch.query_y).square()*synthetic_batch.weights).sum()
     if base_mode in HEADS:
      _,_,dev=m.prior(b.z,b.ids);l=l+.001*(o['regularization']*w).sum()+.0001*(dev.square().mean(1)*w).sum()
      if base_mode=='molecular_offset':l=l+.01*((2*m.prior.offset.weight.tanh()).square()/count[:,None]).mean()

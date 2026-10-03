@@ -1,6 +1,6 @@
 # MoDE-PK
 
-**Molecularly Conditioned Dose-Event Pharmacokinetics** combines molecular parameter prediction, analytic compartment dynamics with dosing events, and sequential concentration observation updates.
+**Molecularly Conditioned Dose-Event Pharmacokinetics** combines frozen molecular features and learned drug identity, analytic compartment dynamics with dosing events, and sequential concentration observation updates. The primary concatenation model uses both update pathways and no neighborhood regularization.
 
 ## Repository contents
 
@@ -33,14 +33,17 @@ The input check reports missing data until authorized inputs are restored. See `
 After restoring required inputs:
 
 ```bash
-python scripts/train.py --fold known --seed 1 --model molecular_relation --output results/runs/reproduction_seed1
+python scripts/train.py --fold known --seed 1 --model molecular_identity --output results/runs/reproduction_seed1
 ```
 
-The historical condition key `molecular_relation` identifies MoDE-PK. The wrapper refuses an existing output directory, estimates population initialization from training profiles, and selects checkpoints on validation data. Do not regenerate an existing experiment split and call it the original split.
+`molecular_identity` identifies the current MoDE-PK. Its 512-dimensional molecular and identity vectors feed a shared 1024-to-32 context projection. Unseen drugs keep their molecular vector and use the mean training-drug identity embedding. `molecular_relation` remains an earlier molecular-only control; it is not the current primary model. The wrapper refuses an existing output directory, estimates population initialization from training profiles, and selects checkpoints on validation data. Do not regenerate an existing experiment split and call it the original split.
 
 ## Experiments
 
-- `run_ten_seed_extension.py`: additional optimization seeds using registered conditions.
+- `run_molecular_identity_validation.py`: the 100 concatenation-model primary fits.
+- `run_hybrid_primary.py`: retrained ablations, partition checks, low-data and single-drug analyses for the current model.
+- `prepare_hybrid_primary.py`, `summarize_hybrid_primary.py`: prediction-based primary and supporting results.
+- `run_ten_seed_extension.py`: earlier model/comparator seeds; retained for provenance.
 - `run_aligned_components.py`: component controls.
 - `run_resampling_validation.py`: CV and alternative participant splits; a large experiment, not a smoke test.
 - `run_scale_shape_diagnostic.py`: frozen-checkpoint calibration diagnostic. This is an experimental control, not the default MoDE-PK architecture.
