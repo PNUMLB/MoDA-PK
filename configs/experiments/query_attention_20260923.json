@@ -1,0 +1,23 @@
+{
+  "status": "running",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "seed_scope": "decoder initialization only; same two frozen inner priors",
+  "inners": [
+    0,
+    1
+  ],
+  "kinds": [
+    "mean",
+    "attention"
+  ],
+  "epochs": 60,
+  "selection": "one common epoch across both inners and all three seeds per kind; minimize worst track of mean per-inner same-prior SB-hRMSE ratio; ties1e-8 choose earlier; epoch0 exact prior included",
+  "model": "bounded log concentration residual on frozen molecular dose-event PK curve",
+  "query": "time,horizon,prior log prediction,dose recency/amount/rate/routes,molecular context; no query concentration",
+  "dose_scope": "inherits registered dosing input; no new assertion that unknown future dose decisions were prospectively known",
+  "claim_scope": "inner development only, not new independent outer or external validation"
+}

@@ -1,0 +1,25 @@
+{
+  "modes": [
+    "native",
+    "summary",
+    "attention"
+  ],
+  "epochs": 240,
+  "validate_every": 10,
+  "learning_rate": 0.003,
+  "weight_decay": 0.0001,
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "inner_partitions": [
+    0,
+    1
+  ],
+  "k": 2,
+  "selection": "One epoch per mode minimizing max across roles of mean SB-hRMSE/reference; tie mean then earliest epoch. Reference is existing train-only fixed prior; used only for normalization.",
+  "scope": "Repeated-use inner development only; no outer validation/test forecasts for selection. No refit at this stage.",
+  "change": "Native end-to-end prior + GRU with zero-initialized residual context; summary or causal attention. Same native amount update, parameter update, relation losses, calibration and stochastic k schedule.",
+  "timestamp": "2026-09-23T10:48:25.441171+00:00"
+}

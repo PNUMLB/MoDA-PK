@@ -1,0 +1,29 @@
+{
+  "status": "running",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "inners": [
+    0,
+    1
+  ],
+  "epochs": 60,
+  "modes": [
+    "state",
+    "cl_state"
+  ],
+  "gains": [
+    0,
+    0.1,
+    0.25,
+    0.5,
+    1
+  ],
+  "learned": "8dim scale-free residual/timing/central-sensitivity/rate-time/route features,8->16->1 sigmoid,initial gain0.1",
+  "state": "central offset amount multiplied by exp(gain*clipped log innovation); residual bound ln4; no future query enters conditioning",
+  "parameters": "fixed molecular prior or CL-only MAP lambda1 steps10 before replay; CL+state is cutoff-conditioned, not online",
+  "selection": "common fixed gain or learned epoch over both inners/all3 decoder seeds, minimize worst track mean same-prior ratio; 1e-8 ties earliest epoch/smaller gain; exact prior candidate included",
+  "scope": "inner development only; held-out test diagnostic is descriptive, not hyperparameter tuning"
+}

@@ -1,0 +1,51 @@
+{
+  "status": "running",
+  "simulation_seed": 17,
+  "simulation_n_per_cell": 64,
+  "errors": [
+    "none",
+    "central_initial",
+    "cl",
+    "absorption"
+  ],
+  "noise": [
+    0.05,
+    0.3
+  ],
+  "k": [
+    1,
+    2,
+    4
+  ],
+  "timings": [
+    "early",
+    "late"
+  ],
+  "simulation_tau": 0.3,
+  "simulation_process": 0.01,
+  "sim_target": "noiseless true future concentration; support noisy; no hyperparameter selection from simulation outcome",
+  "real_inner": [
+    0,
+    1
+  ],
+  "real_tau": [
+    0.1,
+    0.3,
+    1.0
+  ],
+  "real_process": [
+    0.0,
+    0.01,
+    0.1
+  ],
+  "real_noise": "effective train-only support prior-residual difference MAD/sqrt2; floor0.05 cap1; not isolated assay noise",
+  "fit": "choose tau/process by mean per-profile innovation NLL on training first4 support using full filter; same values for full/central",
+  "validation_strength": [
+    0.0,
+    0.25,
+    1.0,
+    4.0
+  ],
+  "selection": "common strength across 2inners per mode minimizing max of mean known/shift prior-relative SB-hRMSE; ties1e-8 smaller strength",
+  "scope": "two existing frozen inner priors; no new outer test evaluation"
+}

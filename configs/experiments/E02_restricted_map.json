@@ -1,0 +1,13 @@
+{
+  "name": "restricted_map_degrees_of_freedom",
+  "modes": {
+    "prior": "no support adaptation",
+    "amplitude": "scalar additive log-concentration calibration",
+    "cl": "log clearance only",
+    "cl_vc": "log clearance and central volume",
+    "all": "all identifiable log PK parameters; ka frozen for IV-only profiles"
+  },
+  "regularization": "zero-centred prior deviation with scale 0.6",
+  "selection": "validation primary k=2; test evaluated only after mode selection",
+  "status": "development"
+}

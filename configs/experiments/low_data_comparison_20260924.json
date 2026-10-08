@@ -1,0 +1,319 @@
+{
+  "experiment": "LOW_DATA_COMPARISON_20260924",
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "blocks": [
+    [
+      "buprenorphine",
+      "fentanyl"
+    ],
+    [
+      "empagliflozin"
+    ],
+    [
+      "fluorouracil"
+    ],
+    [
+      "indomethacin"
+    ],
+    [
+      "lenuzza2016_caffeine",
+      "lenuzza2016_dextromethorphan",
+      "lenuzza2016_digoxin",
+      "lenuzza2016_midazolam",
+      "lenuzza2016_paracetamol"
+    ],
+    [
+      "mavoglurant"
+    ],
+    [
+      "r_lipoic_acid"
+    ],
+    [
+      "remifentanil"
+    ],
+    [
+      "veralipride"
+    ],
+    [
+      "warfarin"
+    ],
+    [
+      "xanthohumol"
+    ]
+  ],
+  "cases": [
+    {
+      "case": "full",
+      "drugs": [],
+      "cap": null
+    },
+    {
+      "case": "block00__n2",
+      "drugs": [
+        "buprenorphine",
+        "fentanyl"
+      ],
+      "cap": 2
+    },
+    {
+      "case": "block00__n4",
+      "drugs": [
+        "buprenorphine",
+        "fentanyl"
+      ],
+      "cap": 4
+    },
+    {
+      "case": "block00__n8",
+      "drugs": [
+        "buprenorphine",
+        "fentanyl"
+      ],
+      "cap": 8
+    },
+    {
+      "case": "block01__n2",
+      "drugs": [
+        "empagliflozin"
+      ],
+      "cap": 2
+    },
+    {
+      "case": "block01__n4",
+      "drugs": [
+        "empagliflozin"
+      ],
+      "cap": 4
+    },
+    {
+      "case": "block01__n8",
+      "drugs": [
+        "empagliflozin"
+      ],
+      "cap": 8
+    },
+    {
+      "case": "block02__n2",
+      "drugs": [
+        "fluorouracil"
+      ],
+      "cap": 2
+    },
+    {
+      "case": "block03__n2",
+      "drugs": [
+        "indomethacin"
+      ],
+      "cap": 2
+    },
+    {
+      "case": "block04__n2",
+      "drugs": [
+        "lenuzza2016_caffeine",
+        "lenuzza2016_dextromethorphan",
+        "lenuzza2016_digoxin",
+        "lenuzza2016_midazolam",
+        "lenuzza2016_paracetamol"
+      ],
+      "cap": 2
+    },
+    {
+      "case": "block04__n4",
+      "drugs": [
+        "lenuzza2016_caffeine",
+        "lenuzza2016_dextromethorphan",
+        "lenuzza2016_digoxin",
+        "lenuzza2016_midazolam",
+        "lenuzza2016_paracetamol"
+      ],
+      "cap": 4
+    },
+    {
+      "case": "block05__n2",
+      "drugs": [
+        "mavoglurant"
+      ],
+      "cap": 2
+    },
+    {
+      "case": "block05__n4",
+      "drugs": [
+        "mavoglurant"
+      ],
+      "cap": 4
+    },
+    {
+      "case": "block05__n8",
+      "drugs": [
+        "mavoglurant"
+      ],
+      "cap": 8
+    },
+    {
+      "case": "block06__n2",
+      "drugs": [
+        "r_lipoic_acid"
+      ],
+      "cap": 2
+    },
+    {
+      "case": "block06__n4",
+      "drugs": [
+        "r_lipoic_acid"
+      ],
+      "cap": 4
+    },
+    {
+      "case": "block06__n8",
+      "drugs": [
+        "r_lipoic_acid"
+      ],
+      "cap": 8
+    },
+    {
+      "case": "block07__n2",
+      "drugs": [
+        "remifentanil"
+      ],
+      "cap": 2
+    },
+    {
+      "case": "block07__n4",
+      "drugs": [
+        "remifentanil"
+      ],
+      "cap": 4
+    },
+    {
+      "case": "block07__n8",
+      "drugs": [
+        "remifentanil"
+      ],
+      "cap": 8
+    },
+    {
+      "case": "block08__n2",
+      "drugs": [
+        "veralipride"
+      ],
+      "cap": 2
+    },
+    {
+      "case": "block08__n4",
+      "drugs": [
+        "veralipride"
+      ],
+      "cap": 4
+    },
+    {
+      "case": "block09__n2",
+      "drugs": [
+        "warfarin"
+      ],
+      "cap": 2
+    },
+    {
+      "case": "block09__n4",
+      "drugs": [
+        "warfarin"
+      ],
+      "cap": 4
+    },
+    {
+      "case": "block09__n8",
+      "drugs": [
+        "warfarin"
+      ],
+      "cap": 8
+    },
+    {
+      "case": "block10__n2",
+      "drugs": [
+        "xanthohumol"
+      ],
+      "cap": 2
+    },
+    {
+      "case": "block10__n4",
+      "drugs": [
+        "xanthohumol"
+      ],
+      "cap": 4
+    },
+    {
+      "case": "block10__n8",
+      "drugs": [
+        "xanthohumol"
+      ],
+      "cap": 8
+    }
+  ],
+  "modes": [
+    "no_molecule",
+    "drug_id",
+    "molecular",
+    "molecular_offset",
+    "scale_rate",
+    "dcm",
+    "deepct",
+    "unipk"
+  ],
+  "epochs": 120,
+  "validate_every": 10,
+  "learning_rate": 0.003,
+  "weight_decay": 0.0001,
+  "relation_loss": false,
+  "contrast_loss": false,
+  "primary_k": 2,
+  "k": [
+    0,
+    1,
+    2,
+    4
+  ],
+  "selection": "Per fit/model minimum fixed global Known validation k2 SB-hRMSE; 13 candidate epochs; no train+validation refit.",
+  "scope": "Target-only participant downsampling, other drug data fixed; coadministered connected drugs jointly reduced. Existing Known validation/test fixed. Repeated-use benchmark, not independent confirmation.",
+  "head_definitions": {
+    "molecular": "Existing molecular prior head",
+    "no_molecule": "Zero molecular input, no chemistry relation",
+    "drug_id": "Train-defined identity embedding, no chemistry; mean train embedding UNK fallback",
+    "molecular_offset": "Molecular prior plus bounded drug-specific 5-parameter offset; unseen offset exactly zero",
+    "scale_rate": "Molecular context outputs log Vc and four kinetic rates. No independent output amplitude; same five PK degrees of freedom."
+  },
+  "offset_regularization": {
+    "bound": 2.0,
+    "coefficient": 0.01,
+    "weight": "1 / fitting participant count per drug"
+  },
+  "calibration": "Fit population only on each reduced training partition, three starts x120steps; shared across five conditions.",
+  "future_joint": "Preserve existing Joint results separately. No claim of new-head Joint validation in this low-data experiment; later nested fold-specific selection required.",
+  "model_training": "Original support with random k 0/1/2/4, hierarchical weighted future MSE + .001 parameter penalty + .0001 prior deviation penalty; no relation signals for fair chemistry controls.",
+  "reuse_modes": [
+    "no_molecule",
+    "drug_id",
+    "molecular",
+    "molecular_offset",
+    "scale_rate"
+  ],
+  "workers": 24,
+  "fit_timeout_seconds": 1800,
+  "baseline_loss": "Same weighted future log MSE, random support k; native head/dynamics. No MHAP-specific offset or observer penalties on external models.",
+  "baseline_scope": {
+    "deepct": "Pinned 13-parameter DeepCt head with ledger extension and support log-scale personalization. Not native end-to-end reproduction.",
+    "unipk": "Pinned Uni-PK NeuralODE with algebraically equivalent cached context, rtol1e-5 atol1e-7, ledger extension, support log-scale personalization. Not native observation-conditioned workflow.",
+    "dcm": "Deterministic compartment prior with support log-scale personalization; not ME-DCM."
+  },
+  "unavailable": {
+    "neural_ode_lu": "Existing runner subclasses Uni-PK, not Lu. Excluded pending actual task integration.",
+    "me_dcm": "Random-effects VI implementation of cited ME-DCM absent.",
+    "selective_prior_flattening": "Faithful selector/targets absent.",
+    "aicmet": "Population-context track absent."
+  },
+  "failure_policy": "Preserve failed fit and logs; no zero/worst scores, no unregistered post-test tuning; report complete paired coverage separately."
+}

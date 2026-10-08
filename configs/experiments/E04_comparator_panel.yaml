@@ -1,0 +1,27 @@
+experiment_id: E04
+status: registered
+purpose: frozen candidate and literature-grounded comparator panel
+protocol:
+  evaluation_track: known
+  k: 2
+  query: after_fourth_distinct_time_block
+  seeds: [1, 2, 3]
+  split: split_v1
+rules:
+  native_reproduction_required_for_literature_claim: true
+  implementation_scope_must_be_recorded: true
+  missing_methods_receive_no_placeholder_score: true
+registered_methods:
+  - population_pk_bayesian_map
+  - neural_ode_pk_lu
+  - selective_prior_flattening
+  - me_dcm
+  - deepct
+  - uni_pk
+  - aicmet
+  - mhap_pk_internal_controls
+required_artifacts:
+  - predictions.parquet
+  - metrics.json
+  - run_manifest.json
+  - method_record.md

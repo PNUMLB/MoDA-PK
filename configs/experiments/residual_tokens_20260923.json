@@ -1,0 +1,32 @@
+{
+  "status": "running",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "inners": [
+    0,
+    1
+  ],
+  "epochs": 60,
+  "modes": [
+    "summary",
+    "residual_mlp",
+    "residual_attention"
+  ],
+  "gains": [
+    0,
+    0.1
+  ],
+  "initial_gain": 0.1,
+  "history": "each token:8 current features,signed log absolute time,log time from token to current observation; max4 blocks; chronological zero padding + mask for MLP; current support token queries all available support tokens for attention",
+  "parameter_update": false,
+  "training": "same frozen inner priors; AdamW0.003; k1/2/4 cycling; all trainable weights",
+  "validation_k": [
+    2,
+    4
+  ],
+  "selection": "k2 only, common epoch across 2inners and 3adapter seeds, minimize worst mean prior-relative known/shift score; 1e-8 ties earlier; k4 diagnostic only using same checkpoint; exact prior included as overall alternative",
+  "scope": "internal repeated-development validation, not outer test or independent generalization"
+}

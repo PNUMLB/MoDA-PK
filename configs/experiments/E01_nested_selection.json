@@ -1,0 +1,9 @@
+{
+  "name": "nested_common_prior_component_selection",
+  "selection": "fit on outer train; choose condition by validation k=2; refit chosen condition on train+validation; evaluate once on outer test",
+  "support_k": [0, 1, 2, 4],
+  "seeds": [1, 2, 3],
+  "development_epochs": 30,
+  "final_candidate_epochs": 120,
+  "status": "development"
+}

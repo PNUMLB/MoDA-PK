@@ -1,0 +1,57 @@
+{
+  "modes": [
+    "native",
+    "linear_interp",
+    "view_consistency",
+    "view_contrastive"
+  ],
+  "validate_every": 10,
+  "learning_rate": 0.003,
+  "weight_decay": 0.0001,
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "k": 2,
+  "selection": "Fixed inner-development chosen epochs, no outer validation/test epoch selection.",
+  "scope": "Previously examined cohort; outer Known and joint drug-source benchmark, not independent external validation.",
+  "change": "Same linear replacement RNG across candidates. Pair loss only on profiles actually replaced. No view loss for k0/k1.",
+  "timestamp": "2026-09-23T22:41:50.915209+00:00",
+  "replacement_probability": 0.5,
+  "fraction_bounds": [
+    0.25,
+    0.75
+  ],
+  "eligible_interval": "No active dose start or infusion stop in CLOSED bracket including endpoints. Singleton endpoint blocks only. k=0/1 unchanged. Ongoing infusion without boundaries allowed and approximation acknowledged.",
+  "augmentation_scope": "Same-profile interpolation, not cross-patient/drug mixup. Original arrays preserved. No query concentration or validation data used to make synthetic support.",
+  "diagnostic": "Use prior interpolation diagnostic; record view losses, hidden dispersion, eligible negative counts; verify original controls.",
+  "secondary_evaluation": "k=0/1/4 at k=2-selected checkpoints; no reselection.",
+  "view_loss_weight": 0.01,
+  "temperature": 0.2,
+  "representation": "Final GRU hidden at common cutoff, L2 normalized, identity projection (no extra trainable head), both branches differentiable.",
+  "forecast_loss": "Original history only for view losses; replacement history for linear_interp control.",
+  "negative_policy": "Other source-scoped participants among actually replaced training profiles. Same recorded source/participant excluded including coadministered drugs. Unknown cross-source linkage remains a data limitation.",
+  "folds": [
+    "known",
+    "loso_00",
+    "loso_01",
+    "loso_02",
+    "loso_03",
+    "loso_04",
+    "loso_05",
+    "loso_06",
+    "loso_07",
+    "loso_08",
+    "loso_09"
+  ],
+  "fixed_epochs": {
+    "native": 190,
+    "linear_interp": 190,
+    "view_consistency": 160,
+    "view_contrastive": 190
+  },
+  "fit_partition": "Registered train only; no train+validation refit. Same for all four new conditions.",
+  "initialization": "Existing train-only population calibration per fold; cast float32 then copy float64 matching internal initialization convention.",
+  "source_selection": "results/runs/HISTORY_CONTRAST/development_20260923/analysis/selected_epochs.csv"
+}

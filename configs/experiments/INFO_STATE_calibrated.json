@@ -1,0 +1,50 @@
+{
+  "status": "completed",
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "folds": [
+    "known",
+    "loso_00",
+    "loso_01",
+    "loso_02",
+    "loso_03",
+    "loso_04",
+    "loso_05",
+    "loso_06",
+    "loso_07",
+    "loso_08",
+    "loso_09"
+  ],
+  "conditions": [
+    "prior_only",
+    "information_only",
+    "state_only",
+    "information_state"
+  ],
+  "epochs": 300,
+  "planned_runs": 55,
+  "first_run": "known_seed1 launched separately",
+  "prior_std_candidates": [
+    0,
+    0.05,
+    0.15,
+    0.3,
+    0.6
+  ],
+  "population_initialization": "train calibration",
+  "initial_state_gain": 0.1,
+  "chemical_penalty": 0.0001,
+  "fit": "train only",
+  "selection": "validation k=2 SB-hRMSE",
+  "claim_scope": "internal controlled experiment",
+  "completed_runs": 55,
+  "failed_runs": 0,
+  "wall_seconds": 677.986613,
+  "first_started_utc": "2026-09-22T23:00:57.706973+00:00",
+  "last_completed_utc": "2026-09-22T23:12:15.693586+00:00"
+}

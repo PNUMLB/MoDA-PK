@@ -1,0 +1,28 @@
+{
+  "status": "running",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "inners": [
+    0,
+    1
+  ],
+  "epochs": 60,
+  "modes": [
+    "current",
+    "summary",
+    "gru"
+  ],
+  "gains": [
+    0,
+    0.1
+  ],
+  "initial_gain": 0.1,
+  "history": "current:8 features; summary:+previous innovation,difference,slope capped with dt floor0.001h,cumulative signed/absolute means,count,previous-mask; gru:8features->16hidden",
+  "parameter_update": false,
+  "training": "all trainable controller+GRU weights; AdamW0.003; k1/2/4 cycling; same frozen inner priors",
+  "selection": "common epoch over two inners and three adapter seeds per memory mode; minimize worst track mean prior-relative score; epoch0 included; ties1e-8 earlier; exact prior remains overall candidate",
+  "scope": "inner development, not independent validation or full outer results"
+}

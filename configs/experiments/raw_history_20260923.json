@@ -1,0 +1,26 @@
+{
+  "modes": [
+    "native",
+    "raw_pool",
+    "raw_attention"
+  ],
+  "epochs": 240,
+  "validate_every": 10,
+  "learning_rate": 0.003,
+  "weight_decay": 0.0001,
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "inner_partitions": [
+    0,
+    1
+  ],
+  "k": 2,
+  "selection": "One epoch per mode minimizing max across roles of mean SB-hRMSE/reference; tie mean then earliest epoch. Reference is existing train-only fixed prior; used only for normalization.",
+  "scope": "Repeated-use inner development only; no outer validation/test forecasts for selection. No refit at this stage.",
+  "change": "Add direct observation history context to native GRU; raw tokens contain observed log concentration, interval, elapsed-dose, delivered-dose, infusion rate, replicate count, route flags, signed-log time, log age. Exclude prediction, innovation, sensitivity from added path. Native backbone still uses its original innovation features. Same training, losses and initial population as previous study.",
+  "timestamp": "2026-09-23T11:00:39.494278+00:00",
+  "secondary_evaluation": "Evaluate k=0,1,4 only at k=2-selected checkpoints; never select epoch by secondary k."
+}
