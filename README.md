@@ -1,52 +1,78 @@
-# MoDE-PK
+# MoDA-PK
 
-**Molecularly Conditioned Dose-Event Pharmacokinetics** combines frozen molecular features and learned drug identity, analytic compartment dynamics with dosing events, and sequential concentration observation updates. The primary concatenation model uses both update pathways and no neighborhood regularization.
+**MoDA-PK: Molecularly Informed Drug Adaptation for Pharmacokinetic Forecasting**
+
+MoDA-PK forecasts individual drug concentration–time profiles from molecular structure, drug identity, dosing records, and available concentration measurements. It combines a drug-conditioned pharmacokinetic prior with observation-based adaptation and analytic compartment dynamics.
+
+## Model overview
+
+- Frozen 512-dimensional molecular representations and learned 512-dimensional drug-identity embeddings are concatenated and projected into a shared 32-dimensional drug context.
+- The drug context establishes five effective pharmacokinetic parameters: absorption rate, clearance, central volume, intercompartmental clearance, and peripheral volume.
+- A bidirectional GRU (BiGRU) encodes the concentration history available at each update. A dose-conditioned controller uses this representation to update effective clearance, central volume, and central drug amount.
+- Future concentrations are predicted by propagating the compartment dynamics under recorded oral doses, intravenous boluses, and finite infusions.
 
 ## Repository contents
 
-- `src/mhap_pk/`: models, PK solver, training, data processing and evaluation. The import name is preserved for checkpoint compatibility.
+- `src/mhap_pk/`: model implementations, PK solver, training, data processing, and evaluation.
 - `src/pkforecast/`: implementation dependencies.
-- `scripts/`: training, experiment runners, evaluation and analysis/figure generation code.
-- `configs/`: research and experiment configuration.
-- `tests/`: numerical, metric, model and calibration checks.
-- `environment/`: dependencies, upstream versions and required input hashes.
-- `docs/`: model/evaluation specifications, source links and repository scope.
+- `scripts/`: training, experiment runners, evaluation, and figure-generation code.
+- `configs/`: model and experiment configurations.
+- `tests/`: numerical, metric, model, and calibration checks.
+- `environment/`: dependency information, upstream versions, and required input hashes.
 
-Manuscripts, result tables/figures, patient-level data, checkpoints and run logs are not included. Analysis **code** is retained; analysis **results** are excluded. See `docs/REPOSITORY_SCOPE.md`.
+The repository contains implementation and analysis code. Manuscripts, result tables and figures, participant-level data, checkpoints, and run logs are not included.
 
-## Install and verify
+## Installation
+
+Run the following commands from the repository root:
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
 python -m pip install -e . --no-deps
+```
+
+Download the pinned comparator sources and run the tests:
+
+```bash
 python scripts/fetch_baseline_sources.py
 python -m pytest -q
+```
+
+Downloaded comparator sources are stored in `third_party/` and remain subject to their original licenses and usage terms.
+
+## Data preparation
+
+The study uses publicly available human pharmacokinetic concentration–time records covering 11 drugs. The underlying clinical records and processed participant-level inputs are not redistributed in this repository, and access follows the conditions of the respective data providers.
+
+Place authorized inputs at the paths specified in `environment/required_inputs.json`, then check their availability and hashes:
+
+```bash
 python scripts/check_inputs.py
 ```
 
-The input check reports missing data until authorized inputs are restored. See `DATA_ACCESS.md` and `docs/DATASET_SOURCES.csv`. This is not a self-contained data bundle. Downloaded comparator sources go into ignored `third_party/`; their origin and usage notices remain in `THIRD_PARTY_NOTICES.md`.
+The check reports missing files until the required inputs have been supplied. Training and analysis also require the configuration files, split assignments, and other inputs expected by the selected workflow.
 
-## One training run
+## Training
 
-After restoring required inputs:
+After preparing the required inputs, run MoDA-PK with a new output directory:
 
 ```bash
 python scripts/train.py --fold known --seed 1 --model molecular_identity --output results/runs/reproduction_seed1
 ```
 
-`molecular_identity` identifies the current MoDE-PK. Its 512-dimensional molecular and identity vectors feed a shared 1024-to-32 context projection. Unseen drugs keep their molecular vector and use the mean training-drug identity embedding. `molecular_relation` remains an earlier molecular-only control; it is not the current primary model. The wrapper refuses an existing output directory, estimates population initialization from training profiles, and selects checkpoints on validation data. Do not regenerate an existing experiment split and call it the original split.
+The `molecular_identity` option selects MoDA-PK. The training wrapper estimates population initialization from training profiles, selects checkpoints using validation data, and refuses to overwrite an existing output directory. Reproduction of a reported experiment requires its original split assignments and configuration.
 
-## Experiments
+## Evaluation and analysis
 
-- `run_molecular_identity_validation.py`: the 100 concatenation-model primary fits.
-- `run_hybrid_primary.py`: retrained ablations, partition checks, low-data and single-drug analyses for the current model.
-- `prepare_hybrid_primary.py`, `summarize_hybrid_primary.py`: prediction-based primary and supporting results.
-- `run_ten_seed_extension.py`: earlier model/comparator seeds; retained for provenance.
-- `run_aligned_components.py`: component controls.
-- `run_resampling_validation.py`: CV and alternative participant splits; a large experiment, not a smoke test.
-- `run_scale_shape_diagnostic.py`: frozen-checkpoint calibration diagnostic. This is an experimental control, not the default MoDE-PK architecture.
-- `summarize_*.py`, `analyze_*.py`, `plot_*.py`: aggregation and visualization after restoring their prediction/checkpoint dependencies. Some scripts expect historical run directories; inspect their input paths before execution.
+The manuscript evaluates new participants receiving drugs represented during training. The learning settings include single-drug and integrated full-data training, integrated training with limited target-drug data, and a matched target-only low-data comparison.
 
-Dataset redistribution permissions have not been verified for this release. No repository-wide software license is invented here. Literature comparator implementation scope is documented in source and notices; deterministic DCM is not ME-DCM.
+| Script | Purpose |
+| --- | --- |
+| `scripts/run_molecular_identity_validation.py` | MoDA-PK fits across configured folds and seeds |
+| `scripts/run_hybrid_primary.py` | Training-data-budget, participant-partition, and single-drug comparisons |
+| `scripts/prepare_hybrid_primary.py` | Assemble prediction results for analysis |
+| `scripts/summarize_hybrid_primary.py` | Summarize primary and supporting evaluations |
+
+Aggregation and plotting scripts require their corresponding predictions or checkpoints. Check each script's configured input and output paths before execution.
