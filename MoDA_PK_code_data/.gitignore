@@ -1,0 +1,21 @@
+# Local participant/prediction data: source redistribution terms are not fully cleared.
+local_data/
+data/raw/
+data/processed/
+*.parquet
+*.npz
+*.pt
+*.ckpt
+*.zip
+# Generated outputs and environment caches
+outputs/
+generated/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.ipynb_checkpoints/
+.DS_Store
+*.egg-info/
+build/
+dist/

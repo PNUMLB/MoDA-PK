@@ -1,0 +1,12 @@
+drug_id,participants_all,profiles_all,observations_all,participants_test,queries_k3
+buprenorphine,21,26,407,5,63
+empagliflozin,16,32,512,4,104
+fentanyl,22,42,1056,5,183
+fluorouracil,6,6,30,1,2
+indomethacin,6,6,66,2,16
+mavoglurant,120,198,2427,24,365
+r_lipoic_acid,19,19,304,3,39
+remifentanil,65,65,1992,13,468
+veralipride,12,12,179,3,36
+warfarin,32,32,247,7,28
+xanthohumol,44,44,354,11,58

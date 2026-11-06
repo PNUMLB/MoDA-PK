@@ -1,0 +1,90 @@
+{
+  "cohort_drugs": 11,
+  "profiles": 482,
+  "participants": 342,
+  "profile_split": [
+    285,
+    96,
+    101
+  ],
+  "participant_split": [
+    202,
+    67,
+    73
+  ],
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "training": {
+    "epochs": 120,
+    "batch": "full",
+    "lr": 0.003,
+    "optimizer": "AdamW",
+    "weight_decay": 0.0001,
+    "validate_every": 10,
+    "train_k": [
+      0,
+      1,
+      2,
+      4
+    ],
+    "validation_k": 2,
+    "test_k": 3
+  },
+  "variants": {
+    "FULL": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "NO-UPDATE": [
+      true,
+      true,
+      false,
+      false
+    ],
+    "PARAM-ONLY": [
+      true,
+      true,
+      true,
+      false
+    ],
+    "AMOUNT-ONLY": [
+      true,
+      true,
+      false,
+      true
+    ],
+    "ID-ONLY": [
+      false,
+      true,
+      true,
+      true
+    ],
+    "MOL-ONLY": [
+      true,
+      false,
+      true,
+      true
+    ]
+  },
+  "flag_order": [
+    "molecular",
+    "drug_id",
+    "cl_vc_update",
+    "central_amount_update"
+  ],
+  "gate": {
+    "default_input": 71,
+    "hidden": 16,
+    "output": 2,
+    "optional_test_input": 64
+  },
+  "evaluation": "participant-balanced drug log-RMSE; source-balanced hierarchical RMSE",
+  "original_forecast_window_mismatch_retained": true
+}
