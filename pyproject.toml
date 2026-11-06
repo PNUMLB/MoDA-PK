@@ -3,18 +3,18 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "mode-pk"
+name = "moda-pk-revised"
 version = "0.1.0"
-description = "Molecularly conditioned dose-event pharmacokinetic forecasting"
+description = "MoDA-PK model implementation and revised aggregate-result reproduction"
 requires-python = ">=3.10"
-dynamic = ["dependencies"]
+dependencies = ["numpy", "pandas", "matplotlib", "torch"]
+
+[project.optional-dependencies]
+full-analysis = ["pyarrow"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
-[tool.setuptools.dynamic]
-dependencies = {file = ["environment/requirements.txt"]}
-
-[tool.pytest.ini_options]
-pythonpath = ["src"]
-testpaths = ["tests"]
+[tool.setuptools]
+py-modules = ["moda_pk", "moda_training"]
+package-dir = {"" = "src"}

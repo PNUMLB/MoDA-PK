@@ -1,11 +1,9 @@
-# Data access
+# Data access and redistribution
 
-This code repository does not distribute clinical records, processed participant-level tables, participant split assignments, frozen embeddings, checkpoints, or individual predictions.
+The tracked `data/` directory contains drug-, seed-, or cohort-level aggregate results. Tables containing participant IDs, profile IDs, observation IDs, individual sampling times, observed concentrations, or individual predictions are excluded from Git.
 
-Public source links are listed in `docs/DATASET_SOURCES.csv`. Public availability and successful numeric replay are not evidence that every combined or transformed dataset may be redistributed. Redistribution permission has not been verified for this release; this status does not mean all sources prohibit redistribution.
+`local_data/` is reserved for separately authorized local records. Its presence in a researcher's workspace does not establish public redistribution permission. Without those local records, the repository supports aggregate-result reproduction only.
 
-Before adding a source, record the dataset-specific license/access terms, permitted redistribution and transformation, required attribution, and any participant-data restrictions. Check source datasets and pretrained features separately from code licenses. Do not infer data permission from a package's software license.
+Permission to redistribute every row in the complete mixed cohort has not been established. In particular, the historical audit did not identify an explicit row-level redistribution grant for some Monolix example data. The [historical access policy](docs/original_data_access.md) is preserved for context; it is not a complete legal clearance list for all eleven drugs.
 
-`environment/required_inputs.json` records expected relative paths, sizes and hashes. Restore authorized files locally at those paths and run `python scripts/check_inputs.py`. Missing data are explicit dependencies; the package does not fabricate replacement clinical data or silently regenerate the original split.
-
-The current repository is code-only and not a self-contained data reproduction bundle. Existing authorized working copies remain in the original research workspace. The source links are a starting point for access, not a universal automatic download pipeline.
+Training requires authorized original inputs, the original split and documented participant links, unit harmonization, dose events, frozen molecular representations, training-only scaling, and population calibration. Supplementary Table S1 of the manuscript documents source publications and access links. This repository does not provide a universal automated downloader.

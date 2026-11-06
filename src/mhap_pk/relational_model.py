@@ -1,4 +1,4 @@
-"""MoDE-PK: relation-supervised prior and consistent floor-log observation link.
+"""Forecast v3: relation-supervised prior and consistent floor-log observation link.
 
 State updates change an estimate, not physical drug administration. After the
 last support block, parameters freeze and only planned dosing drives the ODE.
@@ -54,6 +54,14 @@ class RelationalPK(nn.Module):
         if residual_history is not None:
             from .models.adapters.sequential_history import SequentialHistory
             self.residual_history = SequentialHistory(residual_history, hidden)
+
+    def observer_features(self, features, context):
+        """Default identity hook; physical states and targets remain untouched."""
+        return features
+
+    def observer_updates(self, hidden, features, context):
+        return (self.personal_bound*torch.tanh(self.parameter_head(hidden)),
+                torch.sigmoid(self.gain_head(hidden)).squeeze(-1))
 
     def condition(self, z, events, support_t, support_y, mask, drug_indices=None, prior_values=None,
                   state_correction='amount', log_update_bound=math.log(2.)):
@@ -116,7 +124,9 @@ class RelationalPK(nn.Module):
                 new_gain = torch.full_like(gain, .5)
             else:
                 memory = hidden if self.memory else torch.zeros_like(hidden)
-                history_context = context
+                # Keep the molecular/identity prior while optionally removing
+                # its direct context path to observation updates and their gate.
+                history_context = context if getattr(self, 'share_observer_context', True) else torch.zeros_like(context)
                 if self.residual_history is not None:
                     history_features.append(features)
                     history_times.append(end)
@@ -124,9 +134,8 @@ class RelationalPK(nn.Module):
                     history_context = context + self.residual_history(history_features, history_times, history_masks)
                 if hasattr(self.gru, "set_active"):
                     self.gru.set_active(active)
-                proposed_h = self.gru(torch.cat([features, history_context], -1), memory)
-                new_offset = self.personal_bound*torch.tanh(self.parameter_head(proposed_h))
-                new_gain = torch.sigmoid(self.gain_head(proposed_h)).squeeze(-1)
+                proposed_h = self.gru(torch.cat([self.observer_features(features, history_context), history_context], -1), memory)
+                new_offset, new_gain = self.observer_updates(proposed_h, features, history_context)
             if not self.parameter_update:
                 new_offset = new_offset*0
             change = torch.stack([torch.zeros_like(new_offset[:, 0]), new_offset[:, 0], new_offset[:, 1],
